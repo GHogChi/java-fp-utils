@@ -1,4 +1,4 @@
-package com.spenkana.utils;
+package com.spenkana.utils.result;
 
 import java.util.ArrayList;
 import java.util.List;

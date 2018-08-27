@@ -1,10 +1,12 @@
-package com.spenkana.utils;
+package com.spenkana.utils.result;
 
 /**
  * Use this class when you need exception-specific info like stack traces.
- * NOTE: SimpleError will accept an Exception and build an error message
+ * <p>NOTE: SimpleError will accept an Exception and build an error message
  * containing the exception class and message - this should be sufficient for
- * most cases.
+ * most cases.</p>
+ * <p>It can be a serious security breach to send stack traces and other sensitive
+ * information over the wire: extract them and write to a secure log or message handler.</p>
  * @see SimpleError
  */
 public class ExceptionalError extends SafeError<Exception>{

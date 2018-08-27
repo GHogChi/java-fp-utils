@@ -1,5 +1,10 @@
-package com.spenkana.utils;
+package com.spenkana.utils.result;
 
+import com.spenkana.utils.HttpStatus;
+
+/**
+ * Wraps an HttpStatus.
+ */
 public class HttpError extends SafeError<HttpStatus> {
     private final String msg;
     private final HttpStatus status;

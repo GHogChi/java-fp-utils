@@ -1,9 +1,11 @@
-package com.spenkana.utils;
-
-import com.spenkana.utils.SafeError;
+package com.spenkana.utils.result;
 
 import java.text.MessageFormat;
 
+/**
+ * A SafeError that contains only a message string.
+ * @see SafeError
+ */
 public class SimpleError extends SafeError<String> {
     private final String message;
     public static final SimpleError NOT_AN_ERROR = new SimpleError(NO_ERROR);
