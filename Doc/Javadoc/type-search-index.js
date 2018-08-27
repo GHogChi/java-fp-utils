@@ -1,0 +1,1 @@
+typeSearchIndex = [{"p":"com.spenkana","l":"App"},{"p":"com.spenkana.utils","l":"ErrorList"},{"p":"com.spenkana.utils","l":"ExceptionalError"},{"p":"com.spenkana.utils","l":"HttpError"},{"p":"com.spenkana.utils","l":"HttpStatus"},{"p":"com.spenkana.utils","l":"Result"},{"p":"com.spenkana.utils","l":"SafeError"},{"p":"com.spenkana.utils","l":"SimpleError"}]

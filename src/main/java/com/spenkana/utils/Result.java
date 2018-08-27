@@ -8,11 +8,12 @@ import java.util.Objects;
  * A monad to be used as a return type for functions and methods. It allows
  * for clean and informative failures and facilitates exception-free coding.
  *
- * Generic type T is the type of the object to be returned: the output of the
- * function(/method). If nothing is to be returned (i.e., the function is impure: its only purpose is to create a side effect, use "Void".
- * Generic type E is the type of the error (if any), which must extend
+ * <p>Generic type T is the type of the object to be returned: the output of the
+ * function(/method). If nothing is to be returned (i.e., the function is impure:
+ * its only purpose is to produce a side effect), use "Void".
+ * <p>Generic type E is the type of the error (if any), which must extend
  * SafeError.
- * It would be nice to eliminate nulls, but in one case null will be returned:
+ * <p>It would be nice to eliminate nulls, but in one case null will be returned:
  * when output is requested from a successful Result with an output type of
  * Void. (An earlier version threw exceptions for invalid requests such as
  * the error object for a successful message. Nulls are better.)

@@ -1,2 +1,4 @@
 # java-fp-utils
-Utility classes to mitigate some Java problems and make your code more FP-like.
+Utility classes to mitigate some Java problems and make Java code more FP-like.
+
+## Result
