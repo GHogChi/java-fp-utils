@@ -8,3 +8,7 @@ again.
 Of course you'll have to catch exceptions from old school code that
 insists on throwing them, but you can wrap them in an ExceptionalError
 and return it in the Result.
+
+### NOTE:
+These classes were written using strict TDD, but I have not included the
+tests in this project.
