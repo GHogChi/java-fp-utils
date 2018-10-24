@@ -5,7 +5,7 @@ import com.spenkana.utils.result.SimpleError;
 
 import java.util.HashMap;
 
-import static com.spenkana.utils.result.Result.failure;
+import static com.spenkana.utils.result.Result.failureDueTo;
 
 /**
  * Represents an HTTP return code.
@@ -32,7 +32,7 @@ public enum HttpStatus {
 
     public static Result<HttpStatus, SimpleError> forCode(int code){
         return (statusesByCode.containsKey(code))
-            ? Result.success(statusesByCode.get(code))
-            : failure("No HTTP status registered for code "+code);
+            ? Result.successWith(statusesByCode.get(code))
+            : Result.failureDueTo("No HTTP status registered for code "+code);
     }
 }

@@ -32,62 +32,84 @@ import java.util.Objects;
  * @see SafeError
  * @see <a href="https://en.wikipedia.org/wiki/Monad_(functional_programming)">
  * Monad (functional programming)</a>
+ * @see <a href="https://en.wikipedia.org/wiki/Pure_function">Pure function</a>
+ * @see
+ * <a href="https://en.wikipedia.org/wiki/Partial_function">Partial function</a>
  * @see <a href="http://www.lighterra.com/papers/exceptionsharmful/">Exception
  * Handling Considered Harmful
  * </a>
  */
 public class Result<T, E extends SafeError> implements Serializable {
-    private final boolean ok;
-    private final T output;
-    private final E error;
+    public final boolean succeeded;
+    public final boolean failed;
+    public final T output;
+    public final E error;
 
     /**
      * For serialization only.
      */
     public Result() {
-        ok = false;
+        succeeded = false;
+        failed = true;
         output = null;
         error = (E) SimpleError.NOT_AN_ERROR;
     }
 
-    private Result(
-            E error) {
+	/**
+	 * For failure
+	 * @param error
+	 */
+	private Result(E error) {
         this.error = error;
-        ok = false;
+        succeeded = false;
+        failed = true;
         output = null;
     }
 
-    private Result(T output) {
+	/**
+	 * For success
+	 * @param output
+	 */
+	private Result(T output) {
         this.output = output;
-        ok = true;
+        succeeded = true;
+        failed = false;
         error = (E) SimpleError.NOT_AN_ERROR;
     }
 
-    public boolean succeeded() {
-        return ok;
-    }
-
-    public boolean failed() {
-        return !ok;
-    }
-
-    public static <T, U extends SafeError> Result<T, U> success(T output) {
+	/**
+	 * For success of a pure partial function.
+	 * A total function can never
+	 * fail: it returns a value of the specified type for every possible input.
+	 * @param output value of type T
+	 * @param <T> input type
+	 * @param <U> error type
+	 * @return
+	 */
+    public static <T, U extends SafeError> Result<T, U> successWith(T output) {
         return new Result<>(output);
     }
 
+	/**
+	 * For success of an impure function whose purpose is to cause a "side
+	 * effect".
+	 * @param <Void>
+	 * @param <E>
+	 * @return
+	 */
     public static <Void, E extends SafeError> Result<Void, E> success() {
         return new Result<>();
     }
 
-    public static <T, E extends SafeError> Result<T, E> failure(E error) {
+    public static <T, E extends SafeError> Result<T, E> failureDueTo(E error) {
         return new Result(error);
     }
 
-    public static <T> Result<T, SimpleError> failure(String msg) {
+    public static <T> Result<T, SimpleError> failureDueTo(String msg) {
         return new Result(new SimpleError(msg));
     }
 
-    public static <T> Result<T, ExceptionalError> failure(Exception e) {
+    public static <T> Result<T, ExceptionalError> failureDueTo(Exception e) {
         return new Result(new ExceptionalError(e));
     }
 
@@ -104,7 +126,7 @@ public class Result<T, E extends SafeError> implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Result<?, ?> result = (Result<?, ?>) o;
-        return ok == result.ok &&
+        return succeeded == result.succeeded &&
                 Objects.equals(output, result.output) &&
                 Objects.equals(error, result.error);
     }
@@ -112,7 +134,7 @@ public class Result<T, E extends SafeError> implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(ok, output, error);
+        return Objects.hash(succeeded, output, error);
     }
 }
 
