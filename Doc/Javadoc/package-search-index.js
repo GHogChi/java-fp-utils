@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"com.spenkana.utils"},{"l":"com.spenkana.utils.result"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.spenkana.result"}]
