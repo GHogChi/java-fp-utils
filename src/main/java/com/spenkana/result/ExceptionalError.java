@@ -10,7 +10,7 @@ package com.spenkana.result;
  * @see SimpleError
  */
 public class ExceptionalError extends SafeError<Exception>{
-    private final Exception exception;
+    public final Exception exception;
 
     public ExceptionalError(Exception exception) {
         this.exception = exception;

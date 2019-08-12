@@ -3,6 +3,8 @@ package com.spenkana.result;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static com.spenkana.result.SimpleError.NOT_AN_ERROR;
+
 /**
  * A monad to be used as a return type for functions and methods. It allows
  * for clean and informative failures and facilitates exception-free coding.
@@ -47,20 +49,20 @@ import java.util.Objects;
  * Handling Considered Harmful
  * </a>
  */
-public class Result<T, E extends SafeError> implements Serializable {
+public class Result<T> implements Serializable {
 	public final boolean succeeded;
 	public final boolean failed;
 	public final T output;
-	public final E error;
+	public final SafeError error;
 
 	/**
 	 * For serialization only.
 	 */
 	public Result() {
-		succeeded = false;
-		failed = true;
+		succeeded = true;
+		failed = false;
 		output = null;
-		error = (E) SimpleError.NOT_AN_ERROR;
+		error = NOT_AN_ERROR;
 	}
 
 	/**
@@ -68,7 +70,7 @@ public class Result<T, E extends SafeError> implements Serializable {
 	 *
 	 * @param error
 	 */
-	private Result(E error) {
+	private Result(SafeError error) {
 		this.error = error;
 		succeeded = false;
 		failed = true;
@@ -84,7 +86,7 @@ public class Result<T, E extends SafeError> implements Serializable {
 		this.output = output;
 		succeeded = true;
 		failed = false;
-		error = (E) SimpleError.NOT_AN_ERROR;
+		error = NOT_AN_ERROR;
 	}
 
 	/**
@@ -97,7 +99,7 @@ public class Result<T, E extends SafeError> implements Serializable {
 	 * @param <U>    error type
 	 * @return a success Result with the specified output
 	 */
-	public static <T, U extends SafeError> Result<T, U> successWith(T output) {
+	public static <T, U extends SafeError> Result<T> successWith(T output) {
 		return new Result<>(output);
 	}
 
@@ -106,22 +108,21 @@ public class Result<T, E extends SafeError> implements Serializable {
 	 * effect".
 	 *
 	 * @param <Void> specifies void return
-	 * @param <E>    error type
 	 * @return void
 	 */
-	public static <Void, E extends SafeError> Result<Void, E> success() {
+	public static <Void> Result<Void> success() {
 		return new Result<>();
 	}
 
-	public static <T, E extends SafeError> Result<T, E> failureDueTo(E error) {
+	public static <T> Result<T> failureDueTo(SafeError error) {
 		return new Result(error);
 	}
 
-	public static <T> Result<T, SimpleError> failureDueTo(String msg) {
+	public static <T> Result<T> failureDueTo(String msg) {
 		return new Result(new SimpleError(msg));
 	}
 
-	public static <T> Result<T, ExceptionalError> failureDueTo(Exception e) {
+	public static <T> Result<T> failureDueTo(Exception e) {
 		return new Result(new ExceptionalError(e));
 	}
 
@@ -137,7 +138,7 @@ public class Result<T, E extends SafeError> implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Result<?, ?> result = (Result<?, ?>) o;
+		Result<?> result = (Result<?>) o;
 		return succeeded == result.succeeded &&
 				Objects.equals(output, result.output) &&
 				Objects.equals(error, result.error);

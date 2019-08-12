@@ -31,7 +31,7 @@ public class HttpError extends SafeError<Integer> {
 	 * @return a success Result containing the HttpError, or a failure Result
 	 * with the default error message.
 	 */
-	public static Result<HttpError, SimpleError> httpError(int i) {
+	public static Result<HttpError> httpError(int i) {
 		return httpError(i, buildMsg(i));
 
 	}
@@ -43,7 +43,7 @@ public class HttpError extends SafeError<Integer> {
 	 * @return a success Result containing the HttpError, or a failure Result
 	 * with the default error message.
 	 */
-	public static Result<HttpError, SimpleError> httpError(int i, String msg) {
+	public static Result<HttpError> httpError(int i, String msg) {
 		if (i < 100 || i > 599){
 			return failureDueTo("Not an HTTP status code: " + i);
 		}
