@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import static com.spenkana.result.SimpleError.NOT_AN_ERROR;
+import static java.lang.String.format;
 
 /**
  * A monad to be used as a return type for functions and methods. It allows
@@ -118,7 +119,8 @@ public class Result<T> implements Serializable {
 		return new Result(error);
 	}
 
-	public static <T> Result<T> failureDueTo(String msg) {
+	public static <T> Result<T> failureDueTo(String format, Object... args) {
+		String msg = format(format, args);
 		return new Result(new SimpleError(msg));
 	}
 

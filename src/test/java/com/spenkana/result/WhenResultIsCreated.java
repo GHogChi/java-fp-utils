@@ -27,6 +27,14 @@ public class WhenResultIsCreated {
         assertEquals("Error message", result.getErrorMessage());
     }
 
+
+    @Test
+    public void failureReturnsFormattedErrorMessage(){
+        Result<Void> result = Result.failureDueTo("%s %d", "hello", 1);
+
+        assertEquals("hello 19", result.error.message());
+    }
+
     @Test
     public void failureReturnsSimpleError() {
         Result<Void> result = Result.failureDueTo(new SimpleError("Error message"));
