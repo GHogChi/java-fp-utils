@@ -30,7 +30,7 @@ public class WhenResultIsCreated {
 
     @Test
     public void failureReturnsFormattedErrorMessage(){
-        Result<Void> result = Result.failureDueTo("%s %d", "hello", 1);
+        Result<Void> result = Result.failureDueTo("%s %d", "hello", 19);
 
         assertEquals("hello 19", result.error.message());
     }
