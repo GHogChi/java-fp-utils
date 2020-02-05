@@ -3,4 +3,5 @@
 java-fp-utils.iml
 out/
 target/
-**/Javadoc/jquery/
+**/Javadoc/jquery:f=/
+localTmp/

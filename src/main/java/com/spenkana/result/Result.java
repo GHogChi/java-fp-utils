@@ -69,7 +69,7 @@ public class Result<T> implements Serializable {
 	/**
 	 * For failure
 	 *
-	 * @param error
+	 * @param error all error info captured in a SafeError instance
 	 */
 	private Result(SafeError error) {
 		this.error = error;
@@ -81,7 +81,7 @@ public class Result<T> implements Serializable {
 	/**
 	 * For success
 	 *
-	 * @param output
+	 * @param output the function result, null for Result<Void>
 	 */
 	private Result(T output) {
 		this.output = output;
@@ -97,10 +97,9 @@ public class Result<T> implements Serializable {
 	 *
 	 * @param output value of type T
 	 * @param <T>    input type
-	 * @param <U>    error type
 	 * @return a success Result with the specified output
 	 */
-	public static <T, U extends SafeError> Result<T> successWith(T output) {
+	public static <T> Result<T> successWith(T output) {
 		return new Result<>(output);
 	}
 
@@ -116,16 +115,16 @@ public class Result<T> implements Serializable {
 	}
 
 	public static <T> Result<T> failureDueTo(SafeError error) {
-		return new Result(error);
+		return new Result<>(error);
 	}
 
 	public static <T> Result<T> failureDueTo(String format, Object... args) {
 		String msg = format(format, args);
-		return new Result(new SimpleError(msg));
+		return new Result<>(new SimpleError(msg));
 	}
 
 	public static <T> Result<T> failureDueTo(Exception e) {
-		return new Result(new ExceptionalError(e));
+		return new Result<>(new ExceptionalError(e));
 	}
 
 	public T getOutput() {
