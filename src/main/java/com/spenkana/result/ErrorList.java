@@ -47,4 +47,12 @@ public class ErrorList extends SafeError<List<SafeError>> {
     public int errorCount() {
         return errors.size();
     }
+
+    public boolean occurred() {
+        return errorCount() > 0;
+    }
+
+    public void add(String message) {
+        add(new SimpleError(message));
+    }
 }

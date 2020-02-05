@@ -8,7 +8,7 @@
     <groupId>com.spenkana</groupId>
     <artifactId>java-fp-utils</artifactId>
     <!--    keep jfpu.version in sync with this: -->
-    <version>2.0.3</version>
+    <version>${jfpu.version}</version>
 
     <packaging>
         jar
@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <jfpu.version>2.0.3</jfpu.version>
+        <jfpu.version>2.0.4-SNAPSHOT</jfpu.version>
     </properties>
 
     <dependencies>
