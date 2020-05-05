@@ -3,6 +3,7 @@ package com.spenkana.result;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -11,6 +12,7 @@ import static java.util.stream.Collectors.joining;
  * uniformity.
  * @see SafeError
  */
+//TODO minimize: no instance methods: staticize and add "self" param
 public class ErrorList extends SafeError<List<SafeError>> {
     private final List<SafeError> errors = new ArrayList<SafeError>();
 
@@ -20,8 +22,14 @@ public class ErrorList extends SafeError<List<SafeError>> {
 
     public ErrorList() { }
 
-    public void add(SafeError error){
+    public ErrorList add(SafeError error){
        errors.add(error);
+       return this;
+    }
+
+    public ErrorList add(String format, Object... args){
+        this.add(new SimpleError(format(format, args)));
+        return this;
     }
 
     @Override
