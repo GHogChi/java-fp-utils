@@ -10,7 +10,18 @@ import java.io.Serializable;
  * @param <T> the type of extractable information. This can be used to wrap lower-level errors.
  */
 public abstract class SafeError<T> implements Serializable {
-    public static final String NO_ERROR = "No error";
+    public static final String NO_ERROR_MESSAGE = "No error";
+    public static final SafeError<Void> NO_ERROR = new SafeError() {
+        @Override
+        public String message() {
+            return NO_ERROR_MESSAGE;
+        }
+
+        @Override
+        public Object data() {
+            return null;
+        }
+    };
     public abstract String message();
     public abstract T data();
     public int errorCount() { return 1;}
