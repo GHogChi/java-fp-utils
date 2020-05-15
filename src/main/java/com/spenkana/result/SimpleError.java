@@ -2,6 +2,8 @@ package com.spenkana.result;
 
 import java.text.MessageFormat;
 
+import static java.lang.String.format;
+
 /**
  * A SafeError that contains only a message string.
  *
@@ -30,4 +32,9 @@ public class SimpleError extends SafeError<String> {
                         e.getLocalizedMessage())
         );
     }
+
+    public SimpleError(String format, Object... args){
+        this(format(format, args));
+    }
+
 }
